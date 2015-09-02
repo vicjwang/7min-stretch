@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>7-Minute Stretch</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+</head>
+<body>
+  <div class="container">
+    <h1>7-Minute Stretch</h1>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="6"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/hamstringfloorstretch2.jpg" alt="...">
+          <div class="carousel-caption">
+            Hamstring floor stretch
+          </div>
+        </div><!-- item 0 -->
+        <div class="item">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/Single_knee_to_chest_stretch-300x146.jpg" alt="...">
+          <div class="carousel-caption">
+            Knee to chest stretch
+          </div>
+        </div><!-- item 1 -->
+        <div class="item">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/spinalstretch.jpg" alt="...">
+          <div class="carousel-caption">
+            Spinal stretch
+          </div>
+        </div><!-- item 2 -->
+        <div class="item">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/piriformisstretch21.jpg" alt="...">
+          <div class="carousel-caption">
+            Piriformis stretch
+          </div>
+        </div><!-- item 3 -->
+        <div class="item">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/hipflexorstretch.jpg" alt="...">
+          <div class="carousel-caption">
+            Hip flexors stretch
+          </div>
+        </div><!-- item 4 -->
+        <div class="item">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/quadslyingdownstretch-300x111.jpg" alt="...">
+          <div class="carousel-caption">
+            Quadriceps lying down stretch
+          </div>
+        </div><!-- item 5 -->
+        <div class="item">
+          <img src="http://simpleorganiclife.org/wp-content/uploads/2015/05/totalbackstretch11.jpg" alt="...">
+          <div class="carousel-caption">
+            Total back stretch
+          </div>
+        </div><!-- item 6 -->
+
+      </div><!-- carousel-inner -->
+    </div><!-- carousel -->
+    <h2 class="timer">00:30</h2>
+    <h2 class="side">LEFT</h2>
+    <button class="start btn btn-primary btn-lg">Start</button>
+  </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function() {
+
+  var clickSound = new Audio("click.mp3");
+  var bellSound = new Audio("bell.mp3");
+
+  $('.carousel').carousel(
+    {interval: false, wrap: false}
+  ).css("background-color", "lightgray");
+  
+  var index = 0;
+  var interval;
+  function startCarousel(duration) {
+    // param: duration, in seconds
+    var timer = duration, minutes, seconds;
+    interval = setInterval(function () {
+
+      minutes = parseInt(timer / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      $('.timer').text(minutes + ":" + seconds);
+
+      if (--timer < 0) {
+        timer = duration;
+        if (index++ % 2 == 1) {
+          $(".carousel").carousel("next");
+          $(".side").html("LEFT");
+          clearInterval(interval);
+        } else {
+          $(".side").html("RIGHT");
+        }
+        bellSound.play();
+      } else {
+        clickSound.play();
+      }
+    }, 1000);
+  }
+
+  $(".start").click(function() { 
+    clearInterval(interval);
+    startCarousel(1);
+    $(".carousel").carousel(0);
+   });
+
+  $(".carousel").on("slid.bs.carousel", function() {
+    startCarousel(30);
+  });
+});
+</script>
+</html>
