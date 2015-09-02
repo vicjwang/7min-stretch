@@ -89,7 +89,7 @@ $(document).ready(function() {
   
   var index = 0;
   var interval;
-  function startCarousel(duration) {
+  function activateCarousel(duration) {
     // param: duration, in seconds
     var timer = duration, minutes, seconds;
     interval = setInterval(function () {
@@ -120,12 +120,12 @@ $(document).ready(function() {
 
   $(".start").click(function() { 
     clearInterval(interval);
-    startCarousel(1);
+    activateCarousel(30);
     $(".carousel").carousel(0);
    });
 
   $(".carousel").on("slid.bs.carousel", function() {
-    startCarousel(30);
+    activateCarousel(30);
   });
 });
 </script>
